@@ -94,7 +94,7 @@ SET(LIBMAPLE_SRC
 	STM32duino/cores/maple/cxxabi-compat.cpp
 #	STM32duino/cores/maple/ext_interrupts.cpp
 	STM32duino/cores/maple/HardwareSerial.cpp
-#	STM32duino/cores/maple/HardwareTimer.cpp
+	STM32duino/cores/maple/HardwareTimer.cpp
 #	STM32duino/cores/maple/IPAddress.cpp
 	STM32duino/cores/maple/main.cpp
 #	STM32duino/cores/maple/new.cpp
