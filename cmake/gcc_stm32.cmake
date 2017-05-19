@@ -63,14 +63,14 @@ SET(CMAKE_CPPFILT ${TOOLCHAIN_BIN_DIR}/${TARGET_TRIPLET}-c++filt${TOOL_EXECUTABL
 SET(CMAKE_AR ${TOOLCHAIN_BIN_DIR}/${TARGET_TRIPLET}-ar${TOOL_EXECUTABLE_SUFFIX} CACHE INTERNAL "C++filt")
 
 
-OPTION(USE_LTO "Use Link Time Optimization" OFF)
+OPTION(USE_LTO "Use Link Time Optimization" ON)
 IF(USE_LTO)
 	MESSAGE(STATUS "Using Link Time Optimization")
 
 	SET(LTO_FLAG "-flto")
-	SET(CMAKE_STATIC_LINKER_FLAGS "--plugin \"${TOOLCHAIN_BIN_DIR}/lib/gcc/${TARGET_TRIPLET}/5.4.1/liblto_plugin-0.dll\"")
-	SET(CMAKE_C_ARCHIVE_FINISH   "<CMAKE_RANLIB> --plugin \"${TOOLCHAIN_BIN_DIR}/lib/gcc/${TARGET_TRIPLET}/5.4.1/liblto_plugin-0.dll\" <TARGET>")
-	SET(CMAKE_CXX_ARCHIVE_FINISH "<CMAKE_RANLIB> --plugin \"${TOOLCHAIN_BIN_DIR}/lib/gcc/${TARGET_TRIPLET}/5.4.1/liblto_plugin-0.dll\" <TARGET>")
+	SET(CMAKE_STATIC_LINKER_FLAGS "--plugin \"C:\\Program Files (x86)\\GNU Tools ARM Embedded\\5.4 2016q3\\lib\\gcc\\arm-none-eabi\\5.4.1\\liblto_plugin-0.dll\"")
+	SET(CMAKE_C_ARCHIVE_FINISH   "<CMAKE_RANLIB> --plugin \"C:\\Program Files (x86)\\GNU Tools ARM Embedded\\5.4 2016q3\\lib\\gcc\\arm-none-eabi\\5.4.1\\liblto_plugin-0.dll\" <TARGET>")
+	SET(CMAKE_CXX_ARCHIVE_FINISH "<CMAKE_RANLIB> --plugin \"C:\\Program Files (x86)\\GNU Tools ARM Embedded\\5.4 2016q3\\lib\\gcc\\arm-none-eabi\\5.4.1\\liblto_plugin-0.dll\" <TARGET>")
 ELSE(USE_LTO)
 	MESSAGE(STATUS "Not using Link Time Optimization")
 ENDIF(USE_LTO)
