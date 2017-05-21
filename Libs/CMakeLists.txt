@@ -72,6 +72,8 @@ SET(ARDUINO_LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/STM32duino/libraries)
 SET(ARDUINO_LIBS_SRC
 	${ARDUINO_LIBS_DIR}/Wire/HardWire.cpp
 	${ARDUINO_LIBS_DIR}/Wire/WireBase.cpp
+	${ARDUINO_LIBS_DIR}/STM32ADC/src/STM32ADC.cpp
+	${ARDUINO_LIBS_DIR}/STM32ADC/src/utility/util_adc.c
 )
 
 ADD_LIBRARY(ArduinoLibs STATIC ${ARDUINO_LIBS_SRC})
@@ -99,7 +101,7 @@ SET(LIBMAPLE_SRC
 	STM32duino/cores/maple/main.cpp
 #	STM32duino/cores/maple/new.cpp
 	STM32duino/cores/maple/Print.cpp
-#	STM32duino/cores/maple/pwm.cpp
+	STM32duino/cores/maple/pwm.cpp
 #	STM32duino/cores/maple/Stream.cpp
 #	STM32duino/cores/maple/tone.cpp
 	STM32duino/cores/maple/usb_serial.cpp
