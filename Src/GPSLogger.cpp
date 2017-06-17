@@ -10,43 +10,46 @@
 #include "LEDThread.h"
 #include "ButtonsThread.h"
 
-template<size_t STACK_SIZE, UBaseType_t PRIORITY>
-class Thread
+template<class T>
+class Thread : public T
 {
 	// Structure that will hold the TCB of the task being created
 	StaticTask_t xTaskTCB;
 	// Buffer that the task being created will use as its stack.  Note this is
 	// an array of StackType_t variables.  The size of StackType_t is dependent on
 	// the RTOS port
-	StackType_t xStack[ STACK_SIZE ];
+	StackType_t xStack[ T::THREAD_STACK_SIZE ];
 
 	static void vThreadFunc( void * pvParameters )
 	{
-		((Thread*)pvParameters)->run();
+		Thread<T> * threadImpl = static_cast<Thread<T> * >(pvParameters);
+		threadImpl->run();
 	}
-
-protected:
-	virtual void run() = 0;
 
 public:
 	void start()
 	{
 		xTaskCreateStatic(
 			Thread::vThreadFunc,				/* Function that implements the task. */
-			"Test Thread",				/* Text name for the task. */
-			STACK_SIZE,   /* Number of indexes in the xStack array. */
+			T::THREAD_NAME,				/* Text name for the task. */
+			T::THREAD_STACK_SIZE,   /* Number of indexes in the xStack array. */
 			( void * )this,				/* Parameter passed into the task. */
-			PRIORITY,			/* Priority at which the task is created. */
+			T::THREAD_PRIORITY,			/* Priority at which the task is created. */
 			xStack,					/* Array to use as the task's stack. */
 			&xTaskTCB );				/* Variable to hold the task's data structure. */
 	}
 };
 
 
-class TestThread : public Thread<configMINIMAL_STACK_SIZE, tskIDLE_PRIORITY+1>
+class TestThread
 {
 protected:
-	virtual void run()
+	static constexpr uint32_t THREAD_STACK_SIZE = configMINIMAL_STACK_SIZE;
+	static constexpr UBaseType_t THREAD_PRIORITY = tskIDLE_PRIORITY + 1;
+	static constexpr const char * THREAD_NAME = "Test Thread";
+
+protected:
+	void run()
 	{
 		pinMode(PC13, OUTPUT);
 
@@ -56,7 +59,9 @@ protected:
 			digitalWrite(PC13, !digitalRead(PC13));
 		}
 	}
-} t;
+};
+
+Thread<TestThread> t;
 
 int main(void)
 {
