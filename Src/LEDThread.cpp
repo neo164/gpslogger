@@ -1,7 +1,3 @@
-#include <stm32f1xx_hal.h>
-#include <stm32f1xx_hal_rcc.h>
-#include <stm32f1xx_hal_gpio.h>
-
 #include "LEDThread.h"
 
 #include <Arduino_FreeRTOS.h>
@@ -38,7 +34,7 @@ public:
 };
 
 
-void vLEDThread(void *pvParameters)
+void LEDThread::run()
 {
 	LEDDriver led;
 
